@@ -26,7 +26,9 @@ export class UserService {
     }
     return user;
   }
-
+  async findByUsername(name:string):Promise<User|null>{
+    return this .userRepository.findOneBy({name})
+  }
   async updateUser(id: number, userData: Partial<User>): Promise<User> {
     await this.userRepository.update(id, userData);
     return this.findUserById(id); // This will throw an exception if the user doesn't exist

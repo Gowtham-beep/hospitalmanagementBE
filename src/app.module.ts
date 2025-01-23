@@ -9,16 +9,19 @@ import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot(), // Loads environment variables from .env file
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT ? +process.env.DB_PORT : 5432,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true,
-      synchronize: true, // Disable in production
+      type: 'mysql', // Using MySQL
+      host: process.env.DB_HOST, // Database host (e.g., Aiven's hostname)
+      port: process.env.DB_PORT ? +process.env.DB_PORT : 3306, // Default MySQL port
+      username: process.env.DB_USER, // Your Aiven username
+      password: process.env.DB_PASS, // Your Aiven password
+      database: process.env.DB_NAME, // Your database name
+      autoLoadEntities: true, // Automatically load entities
+      synchronize: true, // Keep as false in production to avoid accidental schema changes
+      ssl: {
+        rejectUnauthorized: false, // Aiven requires SSL; disable strict validation for simplicity
+      },
     }),
     AuthModule,
     DoctorModule,
