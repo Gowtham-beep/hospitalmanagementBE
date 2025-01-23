@@ -4,7 +4,9 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
   } from 'typeorm';
+  import {Appointment} from '../appointment/appointment.entity'
   
   @Entity('users') // The table name in the database
   export class User {
@@ -28,5 +30,8 @@ import {
   
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @OneToMany(()=> Appointment,(appointment)=>appointment.user)
+    appointments:Appointment[]// one user can have many appointments
   }
   

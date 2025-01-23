@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {Appointment} from '../appointment/appointment.entity'
 @Entity()
 export class Doctor {
   @PrimaryGeneratedColumn()
@@ -19,4 +19,7 @@ export class Doctor {
 
   @Column()
   availability: string; // Example: "Mon-Fri, 9 AM - 5 PM"
+  @OneToMany(()=>Appointment,(appointment=>appointment.doctor))
+  appointments:Appointment[]
+
 }
