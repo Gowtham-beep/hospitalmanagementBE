@@ -12,6 +12,7 @@ export class AuthService {
 
   async login(name: string, password: string) {
     const user = await this.userService.findByUsername(name);
+    console.log("user fetched from db:",user)
     if (!user || user.password !== password) {
       throw new UnauthorizedException('Invalid credentials');
     }

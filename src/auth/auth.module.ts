@@ -10,9 +10,9 @@ import {UserModule} from '../user/user.module'
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: 'your_secret_key', // Replace with a secure key, or use process.env for production
+      secret: process.env.JWT_SECRET, // Replace with a secure key, or use process.env for production
       signOptions: {
-        expiresIn: '3600s', // Token expiration time
+        expiresIn: '36000s', // Token expiration time
       },
     }),
     UserModule,
