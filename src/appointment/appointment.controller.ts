@@ -11,9 +11,11 @@ export class AppointmentController {
   async createAppointment(
     @Body('userId') userId: number,
     @Body('doctorId') doctorId: number,
-    @Body('appointmentDate') appointmentDate: Date,
+    @Body('appointmentDate') appointmentDate: string, // Receive as string and convert it to Date in the service
   ): Promise<Appointment> {
-    return this.appointmentService.createAppointment(userId, doctorId, appointmentDate);
+    // Convert string to Date in the controller if needed
+    const date = new Date(appointmentDate); // Ensure it's valid
+    return this.appointmentService.createAppointment(userId, doctorId, date);
   }
 
   // Get all appointments for a user

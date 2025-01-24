@@ -20,9 +20,20 @@ export class AppointmentService {
     doctorId: number,
     appointmentDate: Date,
   ): Promise<Appointment> {
+    
+    // Find the user by userId
     const user = await this.userService.findUserById(userId);
-    const doctor = await this.doctorService.getDoctorById(doctorId);
+    if (!user) {
+      throw new Error('User not found');
+    }
 
+    // Find the doctor by doctorId
+    const doctor = await this.doctorService.getDoctorById(doctorId);
+    if (!doctor) {
+      throw new Error('Doctor not found');
+    }
+
+    // Create the appointment
     const appointment = this.appointmentRepository.create({
       user,
       doctor,
@@ -30,6 +41,7 @@ export class AppointmentService {
       status: 'Booked',
     });
 
+    // Save the appointment to the database
     return this.appointmentRepository.save(appointment);
   }
 
