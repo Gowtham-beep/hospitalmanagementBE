@@ -9,7 +9,10 @@ import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Loads environment variables from .env file
+    ConfigModule.forRoot({
+      isGlobal:true,
+      envFilePath:'.env'
+    }), // Loads environment variables from .env file
     TypeOrmModule.forRoot({
       type: 'mysql', // Using MySQL
       host: process.env.DB_HOST, // Database host (e.g., Aiven's hostname)

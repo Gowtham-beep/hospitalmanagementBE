@@ -27,7 +27,10 @@ export class UserService {
     return user;
   }
   async findByUsername(name:string):Promise<User|null>{
-    return this .userRepository.findOneBy({name})
+    return this .userRepository.findOne({
+      where:{name},
+      select:['id','name','password','role']
+    })
   }
   async updateUser(id: number, userData: Partial<User>): Promise<User> {
     await this.userRepository.update(id, userData);
