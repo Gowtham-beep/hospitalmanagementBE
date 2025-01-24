@@ -19,9 +19,7 @@ import { QueueModule } from './queue/queue.module';
       database: process.env.DB_NAME, // Your database name
       autoLoadEntities: true, // Automatically load entities
       synchronize: true, // Keep as false in production to avoid accidental schema changes
-      ssl: {
-        rejectUnauthorized: false, // Aiven requires SSL; disable strict validation for simplicity
-      },
+      ssl:true,
     }),
     AuthModule,
     DoctorModule,
