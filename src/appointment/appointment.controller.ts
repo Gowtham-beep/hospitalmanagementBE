@@ -23,6 +23,11 @@ export class AppointmentController {
   async getAppointmentsForUser(@Param('userId') userId: number): Promise<Appointment[]> {
     return this.appointmentService.getAppointmentsForUser(userId);
   }
+  //get all appointments
+  @Get()
+  async getAllAppointments(): Promise<Appointment[]> {
+    return this.appointmentService.getAllAppointments();
+  }
 
   // Get all appointments for a doctor
   @Get('doctor/:doctorId')

@@ -44,6 +44,7 @@ export class AppointmentService {
     // Save the appointment to the database
     return this.appointmentRepository.save(appointment);
   }
+  
 
   // Get all appointments for a user
   async getAppointmentsForUser(userId: number): Promise<Appointment[]> {
@@ -76,6 +77,11 @@ export class AppointmentService {
     const appointment = await this.getAppointmentById(id);
     appointment.status = 'Cancelled';
     await this.appointmentRepository.save(appointment);
+  }
+  async getAllAppointments(): Promise<Appointment[]> {
+    return this.appointmentRepository.find({
+      relations: ['user', 'doctor'], // Include related entities (if needed)
+    });
   }
 
   // Delete an appointment
